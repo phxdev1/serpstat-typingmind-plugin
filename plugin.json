@@ -1,37 +1,53 @@
 {
-  "id": "serpstat_keyword_research",
-  "uuid": "a1b2c3d4-5e6f-7890-abcd-ef1234567890",
-  "userSettings": [
-    {
-      "name": "serpstatAPIKey",
-      "required": true,
-      "type": "password",
-      "label": "SerpStat API Key",
-      "description": "Get your API Key from SerpStat: https://serpstat.com/users/profile/api/"
-    },
-    {
-      "name": "database",
-      "type": "text",
-      "label": "Search Engine Database",
-      "description": "Search engine database (e.g., g_us for Google US)",
-      "placeholder": "g_us",
-      "defaultValue": "g_us"
-    }
-  ],
-  "emoji": "🔍",
-  "title": "SerpStat Keyword Research",
-  "openaiSpec": {
-    "name": "serpstat_keyword_research",
-    "parameters": {
-      "type": "object",
-      "required": ["keyword"],
-      "properties": {
-        "keyword": {
-          "type": "string",
-          "description": "The keyword or phrase to research for SEO data."
+    "id": "serpstat_keyword_research",
+    "code": "# Your JS code here",
+    "uuid": "a1b2c3d4-5e6f-7890-abcd-ef1234567890",
+    "emoji": "🔍",
+    "title": "SerpStat Keyword Research",
+    "iconURL": "",
+    "disabled": false,
+    "userSettings": [
+        {
+            "name": "serpstatApiKey",
+            "type": "password",
+            "label": "SerpStat API Key",
+            "required": true,
+            "description": "Get your API key from SerpStat: https://serpstat.com/users/profile/api/"
+        },
+        {
+            "name": "database",
+            "type": "text",
+            "label": "Database",
+            "defaultValue": "g_us",
+            "description": "Search engine database (default: g_us for Google US)"
         }
-      }
+    ],
+    "httpAction": {
+        "id": "serpstat-keyword-research",
+        "url": "https://api.serpstat.com/v4/",
+        "name": "",
+        "method": "POST",
+        "hasBody": true,
+        "hasHeaders": true,
+        "requestBody": "{\n    \"id\": 1,\n    \"method\": \"SerpstatKeywordProcedure.getKeywordInfo\",\n    \"params\": {\n        \"query\": \"{keyword}\",\n        \"se\": \"{database}\"\n    }\n}",
+        "requestHeaders": "{\n    \"Content-Type\": \"application/json\",\n    \"token\": \"{serpstatApiKey}\"\n}",
+        "requestBodyFormat": "json"
     },
-    "description": "Get comprehensive SEO keyword data including search volume, competition metrics, CPC data, and related keywords using SerpStat API for SEO research and content strategy."
-  }
+    "openaiSpec": {
+        "name": "serpstat_keyword_research",
+        "parameters": {
+            "type": "object",
+            "required": [
+                "keyword"
+            ],
+            "properties": {
+                "keyword": {
+                    "type": "string",
+                    "description": "The keyword or phrase to research for SEO data including search volume, competition, and related keywords"
+                }
+            }
+        },
+        "description": "Get comprehensive SEO keyword data including search volume, competition metrics, CPC data, and related keywords using SerpStat API for SEO research and content strategy"
+    },
+    "outputType": "respond_to_ai"
 }
