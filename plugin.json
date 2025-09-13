@@ -1,49 +1,52 @@
 {
-  "uuid": "a1b2c3d4-5e6f-7890-abcd-ef1234567890",
-  "id": "serpstat_seo_data_plugin",
-  "emoji": "🔍",
-  "title": "SerpStat SEO Data",
-  "implementationType": "http",
-  "outputType": "respond_to_ai",
-  "userSettings": [
-    {
-      "name": "serpstatAPIKey",
-      "label": "SerpStat API Key",
-      "type": "password",
-      "required": true,
-      "description": "Get your API key from SerpStat: https://serpstat.com/users/profile/api/"
-    },
-    {
-      "name": "database",
-      "label": "Database",
-      "type": "text",
-      "description": "Search engine database (default: g_us for Google US)",
-      "defaultValue": "g_us"
-    }
-  ],
-  "openaiSpec": {
-    "name": "serpstat_keyword_research",
-    "description": "Get comprehensive SEO data including keyword research, search volume, competition data, and related keywords using SerpStat API. Provide detailed analysis for SEO optimization and content strategy.",
-    "parameters": {
-      "type": "object",
-      "required": ["query"],
-      "properties": {
-        "query": {
-          "type": "string",
-          "description": "The keyword or phrase to research for SEO data"
+    "id": "serpstat_keyword_research",
+    "uuid": "a1b2c3d4-5e6f-7890-abcd-ef1234567890",
+    "emoji": "🔍",
+    "title": "SerpStat Keyword Research",
+    "iconURL": "",
+    "disabled": false,
+    "userSettings": [
+        {
+            "name": "serpstatApiKey",
+            "type": "password",
+            "label": "SerpStat API Key",
+            "required": true,
+            "description": "Get your API key from SerpStat: https://serpstat.com/users/profile/api/"
+        },
+        {
+            "name": "database",
+            "type": "text",
+            "label": "Database",
+            "defaultValue": "g_us",
+            "description": "Search engine database (default: g_us for Google US)"
         }
-      }
-    }
-  },
-  "httpAction": {
-    "id": "serpstat-keyword-research",
-    "method": "POST",
-    "name": "",
-    "url": "https://api.serpstat.com/v4/keyword_info",
-    "hasHeaders": true,
-    "hasBody": true,
-    "requestHeaders": "{\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": \"token {serpstatAPIKey}\"\n}",
-    "requestBody": "{\n    \"query\": \"{query}\",\n    \"se\": \"{database}\"\n}",
-    "requestBodyFormat": "json"
-  }
+    ],
+    "httpAction": {
+        "id": "serpstat-api-call",
+        "url": "https://api.serpstat.com/v4/",
+        "name": "",
+        "method": "POST",
+        "hasBody": true,
+        "hasHeaders": true,
+        "requestBody": "{\n    \"id\": 1,\n    \"method\": \"SerpstatKeywordProcedure.getKeywordInfo\",\n    \"params\": {\n        \"query\": \"{keyword}\",\n        \"se\": \"{database}\"\n    }\n}",
+        "requestHeaders": "{\n    \"Content-Type\": \"application/json\",\n    \"token\": \"{serpstatApiKey}\"\n}",
+        "requestBodyFormat": "json"
+    },
+    "openaiSpec": {
+        "name": "serpstat_keyword_research",
+        "parameters": {
+            "type": "object",
+            "required": [
+                "keyword"
+            ],
+            "properties": {
+                "keyword": {
+                    "type": "string",
+                    "description": "The keyword or phrase to research for SEO data including search volume, competition, and related keywords"
+                }
+            }
+        },
+        "description": "Get comprehensive SEO keyword data including search volume, competition metrics, CPC data, and related keywords using SerpStat API for SEO research and content strategy"
+    },
+    "outputType": "respond_to_ai"
 }
