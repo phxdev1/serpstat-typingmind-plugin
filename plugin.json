@@ -3,7 +3,7 @@
   "uuid": "a1b2c3d4-5e6f-7890-abcd-ef1234567890",
   "userSettings": [
     {
-      "name": "serpstatApiKey",
+      "name": "serpstatAPIKey",
       "required": true,
       "type": "password",
       "label": "SerpStat API Key",
