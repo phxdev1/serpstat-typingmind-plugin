@@ -1,163 +1,46 @@
 {
-  "id": "serpstat_seo_data_plugin",
   "uuid": "a1b2c3d4-5e6f-7890-abcd-ef1234567890",
-  "title": "SerpStat SEO Data",
+  "id": "serpstat_seo_data_plugin",
   "emoji": "🔍",
-  "iconURL": "",
-  "githubURL": "https://github.com/your-username/serpstat-plugin",
-  "overviewMarkdown": "Get comprehensive SEO data including keyword research, competitor analysis, backlink data, and SERP analysis using the SerpStat API. This plugin provides access to SerpStat's extensive database for SEO professionals and marketers.",
-  "authenticationType": "apiKey",
+  "title": "SerpStat SEO Data",
+  "implementationType": "http",
+  "outputType": "respond_to_ai",
   "userSettings": [
     {
       "name": "serpstatAPIKey",
-      "required": true,
-      "type": "password",
       "label": "SerpStat API Key",
+      "type": "password",
+      "required": true,
       "description": "Get your API key from SerpStat: https://serpstat.com/users/profile/api/"
     },
     {
-      "name": "defaultDatabase",
-      "type": "select",
-      "label": "Default Database",
-      "description": "Default search engine database to use",
-      "options": [
-        {"value": "g_us", "label": "Google US"},
-        {"value": "g_uk", "label": "Google UK"},
-        {"value": "g_ca", "label": "Google Canada"},
-        {"value": "g_au", "label": "Google Australia"},
-        {"value": "g_de", "label": "Google Germany"},
-        {"value": "g_fr", "label": "Google France"},
-        {"value": "g_es", "label": "Google Spain"},
-        {"value": "g_it", "label": "Google Italy"},
-        {"value": "g_br", "label": "Google Brazil"},
-        {"value": "g_mx", "label": "Google Mexico"}
-      ],
+      "name": "database",
+      "label": "Database",
+      "description": "Search engine database (default: g_us for Google US)",
       "defaultValue": "g_us"
-    },
-    {
-      "name": "maxResults",
-      "type": "number",
-      "label": "Maximum Results",
-      "description": "Maximum number of results to return (1-1000)",
-      "placeholder": "100",
-      "defaultValue": 100,
-      "min": 1,
-      "max": 1000
     }
   ],
-  "functions": [
-    {
-      "id": "keyword_research",
-      "name": "keyword_research",
-      "implementationType": "javascript",
-      "openaiSpec": {
-        "name": "keyword_research",
-        "description": "Get comprehensive keyword data including search volume, competition, CPC, and related keywords for SEO research",
-        "parameters": {
-          "type": "object",
-          "required": ["query"],
-          "properties": {
-            "query": {
-              "type": "string",
-              "description": "The keyword or phrase to research"
-            },
-            "database": {
-              "type": "string",
-              "description": "Search engine database (e.g., g_us for Google US). If not specified, uses default from settings.",
-              "enum": ["g_us", "g_uk", "g_ca", "g_au", "g_de", "g_fr", "g_es", "g_it", "g_br", "g_mx"]
-            },
-            "limit": {
-              "type": "number",
-              "description": "Number of results to return (1-1000). If not specified, uses default from settings.",
-              "minimum": 1,
-              "maximum": 1000
-            }
-          }
+  "openaiSpec": {
+    "name": "serpstat_keyword_research",
+    "description": "Get comprehensive SEO data including keyword research, search volume, competition data, and related keywords using SerpStat API. Provide detailed analysis for SEO optimization and content strategy.",
+    "parameters": {
+      "type": "object",
+      "required": ["query"],
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "The keyword or phrase to research for SEO data"
         }
-      },
-      "outputType": "markdown"
-    },
-    {
-      "id": "competitor_analysis",
-      "name": "competitor_analysis",
-      "implementationType": "javascript",
-      "openaiSpec": {
-        "name": "competitor_analysis",
-        "description": "Analyze competitors' organic and paid search performance, top keywords, and market share",
-        "parameters": {
-          "type": "object",
-          "required": ["domain"],
-          "properties": {
-            "domain": {
-              "type": "string",
-              "description": "The domain to analyze (e.g., example.com)"
-            },
-            "database": {
-              "type": "string",
-              "description": "Search engine database (e.g., g_us for Google US). If not specified, uses default from settings.",
-              "enum": ["g_us", "g_uk", "g_ca", "g_au", "g_de", "g_fr", "g_es", "g_it", "g_br", "g_mx"]
-            },
-            "analysisType": {
-              "type": "string",
-              "description": "Type of competitor analysis to perform",
-              "enum": ["organic", "ads", "both"],
-              "default": "both"
-            }
-          }
-        }
-      },
-      "outputType": "markdown"
-    },
-    {
-      "id": "backlink_analysis",
-      "name": "backlink_analysis",
-      "implementationType": "javascript",
-      "openaiSpec": {
-        "name": "backlink_analysis",
-        "description": "Get backlink data for a domain including referring domains, anchor texts, and link quality metrics",
-        "parameters": {
-          "type": "object",
-          "required": ["domain"],
-          "properties": {
-            "domain": {
-              "type": "string",
-              "description": "The domain to analyze backlinks for (e.g., example.com)"
-            },
-            "limit": {
-              "type": "number",
-              "description": "Number of backlinks to return (1-1000). If not specified, uses default from settings.",
-              "minimum": 1,
-              "maximum": 1000
-            }
-          }
-        }
-      },
-      "outputType": "markdown"
-    },
-    {
-      "id": "serp_analysis",
-      "name": "serp_analysis",
-      "implementationType": "javascript",
-      "openaiSpec": {
-        "name": "serp_analysis",
-        "description": "Analyze search engine results pages (SERP) for specific keywords, including ranking positions and featured snippets",
-        "parameters": {
-          "type": "object",
-          "required": ["keyword"],
-          "properties": {
-            "keyword": {
-              "type": "string",
-              "description": "The keyword to analyze SERP results for"
-            },
-            "database": {
-              "type": "string",
-              "description": "Search engine database (e.g., g_us for Google US). If not specified, uses default from settings.",
-              "enum": ["g_us", "g_uk", "g_ca", "g_au", "g_de", "g_fr", "g_es", "g_it", "g_br", "g_mx"]
-            }
-          }
-        }
-      },
-      "outputType": "markdown"
+      }
     }
-  ]
+  },
+  "httpAction": {
+    "id": "serpstat-keyword-research",
+    "method": "GET",
+    "url": "https://api.serpstat.com/v4/keyword_info",
+    "hasHeaders": true,
+    "hasBody": false,
+    "requestHeaders": "{\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": \"token {serpstatAPIKey}\"\n}",
+    "requestBodyFormat": "json"
+  }
 }
