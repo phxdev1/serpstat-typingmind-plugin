@@ -1,6 +1,37 @@
 {
-    "id": "test_plugin",
-    "uuid": "12345678-1234-1234-1234-123456789abc",
-    "title": "Test Plugin",
-    "emoji": "🔍"
+  "id": "serpstat_keyword_research",
+  "uuid": "a1b2c3d4-5e6f-7890-abcd-ef1234567890",
+  "userSettings": [
+    {
+      "name": "serpstatApiKey",
+      "required": true,
+      "type": "password",
+      "label": "SerpStat API Key",
+      "description": "Get your API Key from SerpStat: https://serpstat.com/users/profile/api/"
+    },
+    {
+      "name": "database",
+      "type": "text",
+      "label": "Search Engine Database",
+      "description": "Search engine database (e.g., g_us for Google US)",
+      "placeholder": "g_us",
+      "defaultValue": "g_us"
+    }
+  ],
+  "emoji": "🔍",
+  "title": "SerpStat Keyword Research",
+  "openaiSpec": {
+    "name": "serpstat_keyword_research",
+    "parameters": {
+      "type": "object",
+      "required": ["keyword"],
+      "properties": {
+        "keyword": {
+          "type": "string",
+          "description": "The keyword or phrase to research for SEO data."
+        }
+      }
+    },
+    "description": "Get comprehensive SEO keyword data including search volume, competition metrics, CPC data, and related keywords using SerpStat API for SEO research and content strategy."
+  }
 }
