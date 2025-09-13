@@ -1,8 +1,8 @@
 async function serpstat_keyword_research(params, userSettings) {
   const { keyword } = params;
-  const { serpstatApiKey, database } = userSettings;
+  const { serpstatAPIKey, database } = userSettings;
 
-  if (!serpstatApiKey) {
+  if (!serpstatAPIKey) {
     throw new Error('Please set a SerpStat API Key in the plugin settings.');
   }
 
@@ -15,7 +15,7 @@ async function serpstat_keyword_research(params, userSettings) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'token': serpstatApiKey
+        'token': serpstatAPIKey
       },
       body: JSON.stringify({
         id: 1,
