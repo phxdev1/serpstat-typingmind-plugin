@@ -16,6 +16,7 @@
     {
       "name": "database",
       "label": "Database",
+      "type": "text",
       "description": "Search engine database (default: g_us for Google US)",
       "defaultValue": "g_us"
     }
@@ -36,11 +37,13 @@
   },
   "httpAction": {
     "id": "serpstat-keyword-research",
-    "method": "GET",
+    "method": "POST",
+    "name": "",
     "url": "https://api.serpstat.com/v4/keyword_info",
     "hasHeaders": true,
-    "hasBody": false,
+    "hasBody": true,
     "requestHeaders": "{\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": \"token {serpstatAPIKey}\"\n}",
+    "requestBody": "{\n    \"query\": \"{query}\",\n    \"se\": \"{database}\"\n}",
     "requestBodyFormat": "json"
   }
 }
